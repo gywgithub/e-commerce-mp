@@ -2,22 +2,58 @@ const app = getApp()
 
 Page({
   data: {
-    code: ''
+    // code: ''
+    items: [
+      {
+        src: '/imgs/1.jpg',
+        title: '标题',
+        artist: '简介',
+        price: 20,
+        number: 0,
+        selectedNum: 0
+      },
+      {
+        src: '/imgs/2.jpg',
+        title: '标题',
+        artist: '简介',
+        price: 25,
+        number: 0,
+        selectedNum: 0
+      }
+    ]
   },
-  login() {
-    console.log('login')
+  // login() {
+  //   console.log('login')
+  //   let self = this
+  //   wx.login({
+  //     success(res) {
+  //       console.log(res)
+  //       self.setData({
+  //         code: res.code
+  //       })
+  //     }
+  //   })
+  // },
+  onLoad() {
     let self = this
     wx.login({
       success(res) {
         console.log(res)
-        self.setData({
-          code: res.code
-        })
+        if (res.code) {
+          // wx.request({
+          //   url: 'http://127.0.0.1/8080',
+          //   data: {
+          //     code: res.code
+          //   }
+          // })
+        } else {
+          console.log('login error')
+        }
+        
+        // self.setData({
+        //   code: res.code
+        // })
       }
     })
-  },
-  onLoad() {
-    console.log('代码片段是一种迷你、可分享的小程序或小游戏项目，可用于分享小程序和小游戏的开发经验、展示组件和 API 的使用、复现开发问题和 Bug 等。可点击以下链接查看代码片段的详细文档：')
-    console.log('https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/devtools.html')
   },
 })

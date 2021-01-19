@@ -1,12 +1,12 @@
 {
-  "pages":[
+  "pages": [
     "index/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "AI精酿",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "电商小程序",
+    "navigationBarTextStyle": "black"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
