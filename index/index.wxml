@@ -1,0 +1,4 @@
+<view class="intro">
+<button type="primary" plain="true" bindtap="login">登录</button>
+<text>{{code}}</text>
+</view>
