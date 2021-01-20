@@ -42,7 +42,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.11.0",
   "appid": "wxba5bf874e6bae4cf",
-  "projectname": "CraftBeer-MP",
+  "projectname": "电商小程序",
   "debugOptions": {
     "hidedInDevtools": []
   },

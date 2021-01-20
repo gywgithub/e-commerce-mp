@@ -1,20 +1,20 @@
-<view style="height:calc(100vh - 1px);background-color:#eee;border-top:1px solid #eee;">
-  <view wx:for="{{items}}" wx:key="index"
-    style="display:flex;background-color:#fff;margin: 30rpx 0 20rpx 0;padding: 20rpx 10rpx;">
-    <cover-image src="{{item.src}}" style="width:240rpx;height:240rpx;border-radius:8rpx;object-fit:contain;"></cover-image>
-    <view style="padding-left: 40rpx;">
+<view class="container">
+  <view wx:for="{{items}}" wx:key="index" class="card"
+    >
+    <cover-image src="{{item.src}}" class="img"></cover-image>
+    <view class="content">
       <view>{{item.title}}</view>
-      <view>{{item.artist}}</view>
-      <view style="display:flex;">
-        <text>{{item.price}}</text>
-        <view style="display:flex;">
-          <button type="default"
-            style="width:48rpx;height:48rpx;line-height:40rpx;text-align:center;padding: 0;margin: 0 8rpx;border-radius:4rpx;">-</button>
-          <text style="width:80rpx;height:46rpx;text-align:center;font-size:0.8em;border:1rpx solid #eee;">1</text>
-          <button type="default"
-            style="width:48rpx;height:48rpx;line-height:40rpx;text-align:center;padding: 0;margin: 0 8rpx;border-radius:4rpx;">+</button>
+      <view class="artist-container">{{item.artist}}</view>
+      <view class="flex-between">
+        <view class="color-red"><text class="font-size-08">¥</text>{{item.price}}</view>
+        <view class="display-flex">
+          <button type="default" class="btn-option" data-index="{{index}}" bindtap="minusNum" wx:if="{{item.selectedNum > 0}}">-</button>
+          <!-- <text class="text-num">1</text> -->
+          <text class="text-num"  wx:if="{{item.selectedNum > 0}}">{{ item.selectedNum > 0 ? item.selectedNum : null }}</text>
+          <button type="default"  class="btn-option" data-index="{{index}}" bindtap="plusNum">+</button>
         </view>
       </view>
     </view>
   </view>
+  总金额：{{total}}
 </view>
