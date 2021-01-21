@@ -22,6 +22,20 @@ Page({
     ],
     total: 0
   },
+  pay: function (event) {
+    const total = this.data.total
+    console.log(total)
+    wx.showToast({
+      title: '支付成功！',
+      icon: 'success',
+      duration: 20000
+    })
+    setTimeout(() => {
+      wx.switchTab({
+        url: '/info/info',
+      })
+    }, 2000)
+  },
   minusNum: function (event) {
     const index = event.currentTarget.dataset.index
     let items = this.data.items

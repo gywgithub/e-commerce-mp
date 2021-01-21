@@ -1,0 +1,6 @@
+
+订单列表
+<button open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录/注册</button>
+
+<open-data type="userAvatarUrl"></open-data>
+<open-data type="userGender" lang="zh_CN"></open-data>

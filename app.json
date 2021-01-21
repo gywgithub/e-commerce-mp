@@ -1,5 +1,6 @@
 {
   "pages": [
+    "info/info",
     "index/index"
   ],
   "window": {
@@ -7,6 +8,23 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "电商小程序",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#07c160",
+    "list": [
+      {
+        "pagePath": "index/index",
+        "text": "主页",
+        "iconPath": "imgs/home_707070_81.png",
+        "selectedIconPath": "imgs/home_07c160_81.png"
+      },
+      {
+        "pagePath": "info/info",
+        "text": "我的",
+        "iconPath": "imgs/account_707070_81.png",
+        "selectedIconPath": "imgs/account_07c160_81.png"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

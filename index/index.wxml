@@ -1,6 +1,6 @@
 <view class="container">
-  <view wx:for="{{items}}" wx:key="index" class="card"
-    >
+
+  <view wx:for="{{items}}" wx:key="index" class="card">
     <cover-image src="{{item.src}}" class="img"></cover-image>
     <view class="content">
       <view>{{item.title}}</view>
@@ -8,13 +8,17 @@
       <view class="flex-between">
         <view class="color-red"><text class="font-size-08">¥</text>{{item.price}}</view>
         <view class="display-flex">
-          <button type="default" class="btn-option" data-index="{{index}}" bindtap="minusNum" wx:if="{{item.selectedNum > 0}}">-</button>
-          <!-- <text class="text-num">1</text> -->
-          <text class="text-num"  wx:if="{{item.selectedNum > 0}}">{{ item.selectedNum > 0 ? item.selectedNum : null }}</text>
-          <button type="default"  class="btn-option" data-index="{{index}}" bindtap="plusNum">+</button>
+          <button type="default" class="btn-option" data-index="{{index}}" bindtap="minusNum"
+            wx:if="{{item.selectedNum > 0}}">-</button>
+          <text class="text-num"
+            wx:if="{{item.selectedNum > 0}}">{{ item.selectedNum > 0 ? item.selectedNum : null }}</text>
+          <button type="default" class="btn-option" data-index="{{index}}" bindtap="plusNum">+</button>
         </view>
       </view>
     </view>
   </view>
-  总金额：{{total}}
+  <view class="pay-container flex-between">
+    <view class="line-height-120">总金额：<text class="font-size-08 color-red">¥</text><text class="color-red">{{total}}</text></view>
+    <view class="width-200"><button type="primary" class="pay-btn" bindtap="pay">支付</button></view>
+  </view>
 </view>
