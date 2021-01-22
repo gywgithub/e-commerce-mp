@@ -1,5 +1,20 @@
 <view class="container">
-
+  <view class="card flex-between">
+    <view class="display-flex">
+      <cover-image src="{{userInfo.avatarUrl}}" style="border:1px solid #eee;border-radius:50%;width:96rpx;height:96rpx;"></cover-image>
+      <text style="line-height:96rpx;color:#7e7e7e;margin:0 20rpx;">{{userInfo.nickName}}</text>
+    </view>
+    <view style="width:200rpx;text-align:right;">
+      <button size="mini" type="default" plain lang="zh_CN" open-type="getUserInfo" bindgetuserinfo="getUserInfo" 
+      wx:if="{{userInfo.avatarUrl === '/imgs/account_707070_81.png'}}" style="color: #7e7e7e;border:1px solid #ccc;font-size:1em;font-weight:400;margin-top:16rpx;">登录</button>
+      <text wx:else style="color: #7e7e7e;line-height:96rpx;">{{ userInfo.province + '  ' + userInfo.city }}</text>
+    </view>
+  </view>
+  <view class="card">
+    店铺信息
+    <button bindtap="redirectToStorePage">选择店铺</button>
+  </view>
+  
   <view wx:for="{{items}}" wx:key="index" class="card">
     <cover-image src="{{item.src}}" class="img"></cover-image>
     <view class="content">

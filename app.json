@@ -1,7 +1,8 @@
 {
   "pages": [
-    "info/info",
-    "index/index"
+    "shop/shop",
+    "index/index",
+    "info/info"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,9 @@
+<!--shop/shop.wxml-->
+<!-- <text>shop/shop.wxml</text> -->
+<view class="container">
+<view wx:for="{{items}}" wx:key="index" class="card">
+<view>
+  
+</view>{{item.name}}{{item.city}}{{item.address}}
+</view>
+</view>

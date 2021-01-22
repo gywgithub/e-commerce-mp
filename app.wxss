@@ -1,0 +1,13 @@
+.container {
+  height: calc(100vh - 1px);
+  background-color: #eee;
+  border-top: 1px solid #eee;
+}
+.card {
+  background-color: #fff;
+  margin: 30rpx 0 20rpx 0;
+  padding: 20rpx 20rpx;
+}
+.display-flex {
+  display: flex;
+}
