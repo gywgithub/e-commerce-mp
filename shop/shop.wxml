@@ -1,9 +1,18 @@
-<!--shop/shop.wxml-->
-<!-- <text>shop/shop.wxml</text> -->
 <view class="container">
-<view wx:for="{{items}}" wx:key="index" class="card">
-<view>
-  
-</view>{{item.name}}{{item.city}}{{item.address}}
-</view>
+  <radio-group>
+      <label wx:for="{{items}}" wx:key="index" class="card flex-between " data-item="{{item}}" bindtap="selectedShop">
+        <view>
+          <view>
+            {{item.name}}
+          </view>
+          <view style="line-height: 40rpx;font-size: 0.8em;color:#999;">{{item.city}}</view>
+          <view style="line-height: 40rpx;font-size: 0.8em;color:#999;">
+            {{item.address}}
+          </view>
+        </view>
+        <view style="line-height:110rpx;">
+          <radio value="" checked="{{item.checked}}" />
+        </view>
+      </label>
+  </radio-group>
 </view>

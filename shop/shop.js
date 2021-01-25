@@ -8,6 +8,12 @@ Page({
   data: {
     items: []
   },
+  selectedShop(event) {
+    console.log(event)
+    app.globalData.shopInfo = event.currentTarget.dataset.item
+    console.log(app.globalData.shopInfo)
+    wx.navigateBack()
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -17,15 +23,28 @@ Page({
     wx.request({
       url: app.globalData.serverUrl + '/api/v1/stores',
       method: 'GET',
-      success (res) {
+      success(res) {
         console.log(res)
         if (res.data.data.length > 0) {
+          // self.setData({
+          //   items: res.data.data
+          // })
+          let arr = res.data.data
+          console.log(app.globalData.shopInfo)
+          let shopId = app.globalData.shopInfo.id
+          console.log(shopId)
+          for (let i = 0; i < arr.length; i++) {
+            if (shopId === arr[i].id) {
+              arr[i].checked = true
+            }
+          }
+          console.log(arr)
           self.setData({
-            items: res.data.data
+            items: arr
           })
         }
       },
-      fail (err) {
+      fail(err) {
         console.error(err)
       }
     })

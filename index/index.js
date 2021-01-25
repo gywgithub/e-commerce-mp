@@ -2,28 +2,12 @@ const app = getApp()
 
 Page({
   data: {
+    shopInfo: {},
     userInfo: {
       avatarUrl: '/imgs/account_707070_81.png',
       nickName: '未登录用户'
     },
-    items: [
-      {
-        src: '/imgs/1.jpg',
-        title: '动漫头像',
-        artist: '动漫女生头像，简笔画头像风格，唯美简约风格，可爱甜美风格',
-        price: 20,
-        number: 0,
-        selectedNum: 0
-      },
-      {
-        src: '/imgs/2.jpg',
-        title: '动漫女生头像',
-        artist: '动漫女生头像，简笔画头像风格，唯美简约风格，可爱甜美风格，二次元',
-        price: 30,
-        number: 0,
-        selectedNum: 0
-      }
-    ],
+    items: [],
     total: 0
   },
   redirectToStorePage: function (event) {
@@ -52,12 +36,12 @@ Page({
               iv: iv
             },
             method: 'POST',
-            success (res) {
+            success(res) {
               if (res.data.data.user_id) {
                 console.log('userid: ' + res.data.data.user_id)
               }
             },
-            fail (err) {
+            fail(err) {
               console.error(err)
             }
           })
@@ -108,18 +92,36 @@ Page({
       total: totalNum
     })
   },
-
+  onShow() {
+    console.log('onShow')
+    if (app.globalData.shopInfo && app.globalData.shopInfo.id) {
+      this.setData({
+        shopInfo: app.globalData.shopInfo
+      })
+      console.log(this.data.shopInfo)
+      let self = this
+      wx.request({
+        method: 'GET',
+        url: app.globalData.serverUrl + '/api/v1/admin/product?sid=' + this.data.shopInfo.id,
+        success(res) {
+          if (res.data.data.data_list.length > 0) {
+            let dataList = res.data.data.data_list
+            for (var item of dataList) {
+              item['selectedNum'] = 0
+            }
+            self.setData({
+              items: dataList
+            })
+          }
+        },
+        fail(err) {
+          console.error(err)
+        }
+      })
+      console.log('shopInfo ', this.data.shopInfo)
+    }
+  },
   onLoad() {
-    // wx.request({
-    //   method: 'GET',
-    //   url: app.globalData.serverUrl + '',
-    //   data: {},
-    //   success (res) {
-
-    //   },
-    //   fail (err) {
-
-    //   }
-    // })
+    console.log('onload')
   },
 })
