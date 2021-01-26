@@ -1,6 +1,18 @@
-
-订单列表
-<button open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录/注册</button>
-
-<open-data type="userAvatarUrl"></open-data>
-<open-data type="userGender" lang="zh_CN"></open-data>
+<view class="container">
+  <view wx:for="{{items}}" wx:key="index" wx:for-item="item" class="card">
+    "order_no": {{item.order_no}},
+    "total_money": {{item.total_money}},
+    "real_total_money": {{item.total_money}},
+    "create_at": {{item.create_at}},
+    "status": {{item.status}},
+    <view wx:for="{{item.detail}}" wx:key="key" wx:for-item="val">
+      <!-- "beer_id": 1, -->
+      "title": {{val.title}},
+      "price": {{val.price}},
+      "selectedNum": {{val.selectedNum}},
+      <!-- "src": "https://beer-minio-dev.sg-ai.com/products/18/7ce2312fb0ed4fd4b6b337eca4a58ddb.png", -->
+      <!-- "coupon": {}, -->
+      "modified_time": {{val.modified_time}}
+    </view>
+  </view>
+</view>

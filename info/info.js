@@ -16,6 +16,30 @@ Page({
    */
   onLoad: function (options) {
     console.log(app.globalData.serverUrl)
+    console.log(app.globalData.userInfo)
+    let self = this
+    if (app.globalData.userInfo.userId) {
+      wx.request({
+        method: 'GET',
+        url: app.globalData.serverUrl + '/api/v1/wx/orders/bills',
+        data: {
+          user_id: app.globalData.userInfo.userId,
+          page: 1,
+          page_size: 99
+        },
+        success (res) {
+          console.log(res)
+          if (res.data.data.length > 0) {
+            self.setData({
+              items: res.data.data
+            })
+          }
+        },
+        fail (err) {
+          console.error(err)
+        }
+      })
+    }
   },
 
   /**

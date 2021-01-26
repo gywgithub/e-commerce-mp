@@ -8,7 +8,8 @@ Page({
       nickName: '未登录用户'
     },
     items: [],
-    total: 0
+    total: 0,
+    viewHeight: '100vh'
   },
   redirectToStorePage: function (event) {
     wx.navigateTo({
@@ -20,7 +21,7 @@ Page({
     const iv = event.detail.iv
     const encryptedData = event.detail.encryptedData
     // const avatar = event.detail.
-    // let self = this
+    let self = this
     const userInfo = event.detail.userInfo
     this.setData({
       userInfo: userInfo
@@ -39,6 +40,14 @@ Page({
             success(res) {
               if (res.data.data.user_id) {
                 console.log('userid: ' + res.data.data.user_id)
+                const id = res.data.data.user_id
+                let userInfo = self.data.userInfo
+                userInfo['userId'] = id
+                self.setData({
+                  userInfo: userInfo
+                })
+                app.globalData.userInfo = userInfo
+                console.log(self.data.userInfo)
               }
             },
             fail(err) {
@@ -53,17 +62,62 @@ Page({
   },
   pay: function (event) {
     const total = this.data.total
-    console.log(total)
-    wx.showToast({
-      title: '支付成功！',
-      icon: 'success',
-      duration: 2000
-    })
-    setTimeout(() => {
-      wx.switchTab({
-        url: '/info/info',
+    if (total === 0) {
+      wx.showToast({
+        title: '请先选择商品',
+        icon: 'error',
+        duration: 2000
       })
-    }, 2010)
+      return false
+    }
+    if (!this.data.userInfo.userId) {
+      wx.showToast({
+        title: '请先登录',
+        icon: 'error',
+        duration: 2000
+      })
+      return false
+    }
+    const detail = this.data.items.filter(item => item.selectedNum > 0)
+    const data = {
+      store_id: this.data.shopInfo.id,
+      user_id: this.data.userInfo.userId,
+      money: total,
+      real_total_money: total,
+      detail: detail,
+      coupon: {}
+    }
+    console.log(data)
+    wx.request({
+      url: app.globalData.serverUrl + '/api/v1/wx/orders',
+      data: data,
+      method: 'POST',
+      success(res) {
+        console.log(res)
+        if (res.data.data) {
+          let obj = res.data.data
+          wx.requestPayment({
+            "timeStamp": obj.timeStamp,
+            "nonceStr": obj.nonceStr,
+            "package": obj.package,
+            "signType": "RSA",
+            "paySign": obj.paySign,
+            "success": function (res) {
+              console.log(res)
+            },
+            "fail": function (err) {
+              console.error(err)
+            },
+            "complete": function (res) {
+              console.log('complete')
+            }
+          })
+        }
+      },
+      fail(err) {
+        console.error(err)
+      }
+    })
   },
   minusNum: function (event) {
     const index = event.currentTarget.dataset.index
@@ -110,7 +164,13 @@ Page({
               item['selectedNum'] = 0
             }
             self.setData({
+              viewHeight: 'calc(100vh - 120rpx)',
               items: dataList
+            })
+          } else {
+            self.setData({
+              viewHeight: '100vh',
+              items: []
             })
           }
         },

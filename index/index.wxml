@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" style="height:{{viewHeight}};">
   <view class="card flex-between">
     <view class="display-flex">
       <cover-image src="{{userInfo.avatarUrl}}"
