@@ -1,13 +1,40 @@
-.container {
-  overflow-y: auto;
-}
-
 .img {
   width: 240rpx;
   height: 240rpx;
   border-radius: 8rpx;
   object-fit: contain;
   border: 1px solid #f6f6f6;
+}
+
+.avatar-image-size {
+  border: 1px solid #eee;
+  border-radius: 50%;
+  width: 96rpx;
+  height: 96rpx;
+}
+
+.nick-name {
+  line-height: 96rpx;
+  color: #7e7e7e;
+  margin: 0 20rpx;
+}
+
+.login-btn-container {
+  width: 200rpx;
+  text-align: right;
+}
+
+.login-btn {
+  color: #7e7e7e !important;
+  border: 1px solid #ccc !important;
+  font-size: 1em;
+  font-weight: 400;
+  margin-top: 16rpx;
+}
+
+.user-city {
+  color: #7e7e7e;
+  line-height: 96rpx;
 }
 
 .content {
@@ -70,4 +97,11 @@
 .pay-btn {
   width: 100% !important;
   margin-top: 20rpx;
+}
+
+.empty-data-container {
+  margin-top: 80rpx;
+  text-align: center;
+  font-size: 0.8em;
+  color: #7e7e7e
 }

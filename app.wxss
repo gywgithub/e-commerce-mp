@@ -2,6 +2,7 @@
   height: calc(100vh - 1px);
   background-color: #eee;
   border-top: 1px solid #eee;
+  overflow-y: auto;
 }
 .card {
   background-color: #fff;
@@ -14,4 +15,8 @@
 .flex-between {
   display: flex;
   justify-content: space-between;
+}
+.font-text {
+  font-size: 0.8em;
+  color: #999;
 }

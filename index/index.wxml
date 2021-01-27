@@ -1,15 +1,13 @@
 <view class="container" style="height:{{viewHeight}};">
   <view class="card flex-between">
     <view class="display-flex">
-      <cover-image src="{{userInfo.avatarUrl}}"
-        style="border:1px solid #eee;border-radius:50%;width:96rpx;height:96rpx;"></cover-image>
-      <text style="line-height:96rpx;color:#7e7e7e;margin:0 20rpx;">{{userInfo.nickName}}</text>
+      <cover-image src="{{userInfo.avatarUrl}}" class="avatar-image-size"></cover-image>
+      <text class="nick-name">{{userInfo.nickName}}</text>
     </view>
-    <view style="width:200rpx;text-align:right;">
+    <view class="login-btn-container">
       <button size="mini" type="default" plain lang="zh_CN" open-type="getUserInfo" bindgetuserinfo="getUserInfo"
-        wx:if="{{userInfo.avatarUrl === '/imgs/account_707070_81.png'}}"
-        style="color: #7e7e7e;border:1px solid #ccc;font-size:1em;font-weight:400;margin-top:16rpx;">登录</button>
-      <text wx:else style="color: #7e7e7e;line-height:96rpx;">{{ userInfo.province + '  ' + userInfo.city }}</text>
+        wx:if="{{userInfo.avatarUrl === '/imgs/account_707070_81.png'}}" class="login-btn">登录</button>
+      <text wx:else class="user-city">{{ userInfo.province + '  ' + userInfo.city }}</text>
     </view>
   </view>
   <view class="card flex-between" bindtap="redirectToStorePage">
@@ -42,7 +40,7 @@
       <view class="width-200"><button type="primary" class="pay-btn" bindtap="pay">支付</button></view>
     </view>
   </view>
-  <view wx:else style="margin-top: 80rpx; text-align:center; font-size:0.8em;color:#7e7e7e">
+  <view wx:else class="empty-data-container">
     暂无商品，请选择店铺
   </view>
 

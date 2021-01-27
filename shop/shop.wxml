@@ -1,18 +1,18 @@
 <view class="container">
   <radio-group>
-      <label wx:for="{{items}}" wx:key="index" class="card flex-between " data-item="{{item}}" bindtap="selectedShop">
+    <label wx:for="{{items}}" wx:key="index" class="card flex-between " data-item="{{item}}" bindtap="selectedShop">
+      <view>
         <view>
-          <view>
-            {{item.name}}
-          </view>
-          <view style="line-height: 40rpx;font-size: 0.8em;color:#999;">{{item.city}}</view>
-          <view style="line-height: 40rpx;font-size: 0.8em;color:#999;">
-            {{item.address}}
-          </view>
+          {{item.name}}
         </view>
-        <view style="line-height:110rpx;">
-          <radio value="" checked="{{item.checked}}" />
+        <view class="shop-city">{{item.city}}</view>
+        <view class="shop-address">
+          {{item.address}}
         </view>
-      </label>
+      </view>
+      <view class="line-height-110rpx">
+        <radio value="" checked="{{item.checked}}" />
+      </view>
+    </label>
   </radio-group>
 </view>
