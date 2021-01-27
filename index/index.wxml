@@ -1,7 +1,7 @@
 <view class="container" style="height:{{viewHeight}};">
   <view class="card flex-between">
     <view class="display-flex">
-      <cover-image src="{{userInfo.avatarUrl}}" class="avatar-image-size"></cover-image>
+      <image mode="aspectFill" src="{{userInfo.avatarUrl}}" class="avatar-image-size" ></image>
       <text class="nick-name">{{userInfo.nickName}}</text>
     </view>
     <view class="login-btn-container">
@@ -18,7 +18,7 @@
 
   <view wx:if="{{items.length > 0}}">
     <view wx:for="{{items}}" wx:key="index" class="card display-flex">
-      <cover-image src="{{item.src}}" class="img"></cover-image>
+      <image mode="aspectFill" src="{{item.src}}" class="img"></image>
       <view class="content">
         <view>{{item.title}}</view>
         <view class="artist-container">{{item.artist}}</view>

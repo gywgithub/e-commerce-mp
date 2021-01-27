@@ -8,13 +8,7 @@ Page({
   data: {
     items: []
   },
-  getUserInfo: function (event) {
-    console.log(event)
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  getOrders: function() {
     console.log(app.globalData.serverUrl)
     console.log(app.globalData.userInfo)
     let self = this
@@ -37,9 +31,19 @@ Page({
         },
         fail (err) {
           console.error(err)
+        },
+        complete (res) {
+          console.log('c')
+          wx.stopPullDownRefresh()
         }
       })
     }
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getOrders()
   },
 
   /**
@@ -74,7 +78,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getOrders()
   },
 
   /**
