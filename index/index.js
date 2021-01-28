@@ -104,6 +104,16 @@ Page({
             "paySign": obj.paySign,
             "success": function (res) {
               console.log(res)
+              wx.showToast({
+                title: '支付成功',
+                icon: 'success',
+                duration: 1500
+              })
+              setTimeout(() => {
+                wx.switchTab({
+                  url: '/info/info'
+                })
+              }, 1500)
             },
             "fail": function (err) {
               console.error(err)
