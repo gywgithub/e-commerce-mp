@@ -12,6 +12,20 @@ Page({
     console.log(event)
     app.globalData.shopInfo = event.currentTarget.dataset.item
     console.log(app.globalData.shopInfo)
+    wx.setStorage({
+      key: 'shopInfo',
+      data: event.currentTarget.dataset.item
+    })
+    // console.log(4)
+    // wx.getStorage({
+    //   key: 'shopInfo',
+    //   success (res) {
+    //     console.log(5)
+    //     console.log(res.data)
+        
+    //   }
+    // })
+    // console.log(6)
     wx.navigateBack()
   },
 
@@ -19,6 +33,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('3')
     const self = this
     wx.request({
       url: app.globalData.serverUrl + '/api/v1/stores',
@@ -26,9 +41,6 @@ Page({
       success(res) {
         console.log(res)
         if (res.data.data.length > 0) {
-          // self.setData({
-          //   items: res.data.data
-          // })
           let arr = res.data.data
           console.log(app.globalData.shopInfo)
           let shopId = app.globalData.shopInfo.id

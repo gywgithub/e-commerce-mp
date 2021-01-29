@@ -16,44 +16,68 @@ Page({
       url: '/shop/shop',
     })
   },
+  setUserInfo: function (userInfo) {
+    this.setData({
+      userInfo: userInfo
+    })
+    app.globalData.userInfo = userInfo
+  },
   getUserInfo: function (event) {
     console.log(event)
-    const iv = event.detail.iv
-    const encryptedData = event.detail.encryptedData
-    // const avatar = event.detail.
+    let iv = ''
+    let encryptedData = ''
     let self = this
     const userInfo = event.detail.userInfo
+
     this.setData({
       userInfo: userInfo
     })
     wx.login({
       success(res) {
         if (res.code) {
-          wx.request({
-            url: app.globalData.serverUrl + '/api/v1/wx/users/oauth_user',
-            data: {
-              code: res.code,
-              encrypted_data: encryptedData,
-              iv: iv
-            },
-            method: 'POST',
+          console.log('code: ', res.code)
+          const code = res.code
+          wx.getUserInfo({
             success(res) {
-              if (res.data.data.user_id) {
-                console.log('userid: ' + res.data.data.user_id)
-                const id = res.data.data.user_id
-                let userInfo = self.data.userInfo
-                userInfo['userId'] = id
-                self.setData({
-                  userInfo: userInfo
+              console.log(res)
+              if (res.iv && res.encryptedData) {
+                iv = res.iv
+                encryptedData = res.encryptedData
+                console.log('iv: ', iv)
+                console.log('encrypteData: ', encryptedData)
+                wx.request({
+                  url: app.globalData.serverUrl + '/api/v1/wx/users/oauth_user',
+                  data: {
+                    code: code,
+                    encrypted_data: encryptedData,
+                    iv: iv
+                  },
+                  method: 'POST',
+                  success(res) {
+                    console.log(res)
+                    if (res.data.data && res.data.data.user_id) {
+                      console.log('userid: ' + res.data.data.user_id)
+                      const id = res.data.data.user_id
+                      let userInfo = self.data.userInfo
+                      userInfo['userId'] = id
+                      self.setUserInfo(userInfo)
+                      console.log(self.data.userInfo)
+                      wx.setStorage({
+                        key: 'userInfo',
+                        data: userInfo
+                      })
+                    } else {
+                      console.error('login error oauth_user')
+                    }
+                  },
+                  fail(err) {
+                    console.error(err)
+                  }
                 })
-                app.globalData.userInfo = userInfo
-                console.log(self.data.userInfo)
               }
-            },
-            fail(err) {
-              console.error(err)
             }
           })
+
         } else {
           console.log('login error')
         }
@@ -156,42 +180,72 @@ Page({
       total: totalNum
     })
   },
+  getShopProduct(shopInfo) {
+    let self = this
+
+    wx.request({
+      method: 'GET',
+      url: app.globalData.serverUrl + '/api/v1/admin/product?sid=' + shopInfo.id,
+      success(res) {
+        if (res.data.data.data_list.length > 0) {
+          let dataList = res.data.data.data_list
+          for (var item of dataList) {
+            item['selectedNum'] = 0
+          }
+          self.setData({
+            viewHeight: 'calc(100vh - 120rpx)',
+            items: dataList,
+            total: 0
+          })
+        } else {
+          self.setData({
+            viewHeight: '100vh',
+            items: []
+          })
+        }
+      },
+      fail(err) {
+        console.error(err)
+      }
+    })
+  },
   onShow() {
     console.log('onShow')
-    if (app.globalData.shopInfo && app.globalData.shopInfo.id) {
+    if (app.globalData.shopInfo && app.globalData.shopInfo.id && app.globalData.shopInfo.id !== this.data.shopInfo.id) {
       this.setData({
         shopInfo: app.globalData.shopInfo
       })
-      console.log(this.data.shopInfo)
-      let self = this
-      wx.request({
-        method: 'GET',
-        url: app.globalData.serverUrl + '/api/v1/admin/product?sid=' + this.data.shopInfo.id,
-        success(res) {
-          if (res.data.data.data_list.length > 0) {
-            let dataList = res.data.data.data_list
-            for (var item of dataList) {
-              item['selectedNum'] = 0
-            }
-            self.setData({
-              viewHeight: 'calc(100vh - 120rpx)',
-              items: dataList
-            })
-          } else {
-            self.setData({
-              viewHeight: '100vh',
-              items: []
-            })
-          }
-        },
-        fail(err) {
-          console.error(err)
-        }
-      })
-      console.log('shopInfo ', this.data.shopInfo)
+      this.getShopProduct(app.globalData.shopInfo)
+    } else {
+      console.log('not fresh data')
     }
   },
   onLoad() {
     console.log('onload')
+    const self = this
+    wx.getStorage({
+      key: 'userInfo',
+      success(res) {
+        console.log(res.data)
+        self.setUserInfo(res.data)
+      }
+    })
+
+    // get shopInfo, productInfo
+    wx.getStorage({
+      key: 'shopInfo',
+      success(res) {
+        console.log(res.data)
+      },
+      complete(res) {
+        if (res.data && res.data.id) {
+          self.setData({
+            shopInfo: res.data
+          })
+          app.globalData.shopInfo = res.data
+          self.getShopProduct(res.data)
+        }
+      }
+    })
   },
 })

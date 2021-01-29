@@ -20,3 +20,9 @@
   font-size: 0.8em;
   color: #999;
 }
+.empty-data-container {
+  margin-top: 80rpx;
+  text-align: center;
+  font-size: 0.8em;
+  color: #7e7e7e
+}

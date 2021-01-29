@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    items: []
+    items: [],
+    message: '暂无订单数据'
   },
   getOrders: function() {
     console.log(app.globalData.serverUrl)
@@ -27,15 +28,22 @@ Page({
             self.setData({
               items: res.data.data
             })
+          } else {
+            self.setData({
+              message: '暂无订单数据'
+            })
           }
         },
         fail (err) {
           console.error(err)
         },
         complete (res) {
-          console.log('c')
           wx.stopPullDownRefresh()
         }
+      })
+    } else {
+      self.setData({
+        message: '请先登录，再查询订单数据'
       })
     }
   },

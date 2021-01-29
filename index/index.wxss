@@ -99,9 +99,9 @@
   margin-top: 20rpx;
 }
 
-.empty-data-container {
+/* .empty-data-container {
   margin-top: 80rpx;
   text-align: center;
   font-size: 0.8em;
   color: #7e7e7e
-}
+} */
